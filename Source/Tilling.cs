@@ -18,6 +18,7 @@ namespace AdvancedCultivation
     public static class ResearchProjectDefOf
     {
         public static ResearchProjectDef AC_Tilling;
+        public static ResearchProjectDef AC_Composting;
     }
 
     [DefOf]

@@ -608,7 +608,6 @@ namespace AdvancedCultivation
             r.unfilledMat = Building_AC_CompostBin.BarUnfilledMat;
             r.margin = 0.1f;
             r.rotation = this.Rotation;
-            Log.Message($"{this.Empty}");
             if (!this.Empty)
             {
                 GenDraw.DrawFillableBar(r);
@@ -642,7 +641,8 @@ namespace AdvancedCultivation
             Building_AC_CompostBin CompostBin = t as Building_AC_CompostBin;
             if (CompostBin == null ||
                 CompostBin.Fermented ||
-                CompostBin.SpaceLeftForCompost <= 0)
+                CompostBin.SpaceLeftForCompost < 1 ||
+                !ResearchProjectDefOf.AC_Composting.IsFinished)
             {
                 return false;
             }
