@@ -4,6 +4,7 @@ using Verse;
 using Verse.AI;
 using RimWorld;
 using HarmonyLib;
+using RimWorld.Planet;
 
 namespace AdvancedCultivation
 {
@@ -265,7 +266,14 @@ namespace AdvancedCultivation
             {
                 return null;
             }
-            if (!PlantUtility.GrowthSeasonNow(c, map, true))
+
+            var zone = c.GetZone(pawn.Map) as Zone_Growing;
+
+            // Checks both zone null, and a fix for a mod conflict I already know about. There's a mod that can make PlantDefToGrow null
+            if (zone?.PlantDefToGrow == null)
+                return null;
+
+            if (!PlantUtility.GrowthSeasonNow(c, map, zone.PlantDefToGrow))
             {
                 return null;
             }
@@ -329,14 +337,13 @@ namespace AdvancedCultivation
                     j++;
                 }
             }
-            if (PlantUtility.GrowthSeasonNow(c, map, true))
+
+            LocalTargetInfo targetd = c;
+            if (pawn.CanReserve(targetd, 1, -1, null, forced))
             {
-                LocalTargetInfo target = c;
-                if (pawn.CanReserve(target, 1, -1, null, forced))
-                {
-                    return new Job(JobDefOf.AC_Till, c);
-                }
+                return new Job(JobDefOf.AC_Till, c);
             }
+
             return null;
         }
     }
