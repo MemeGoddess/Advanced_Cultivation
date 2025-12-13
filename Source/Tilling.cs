@@ -223,7 +223,7 @@ namespace AdvancedCultivation
                 {
                     if (growZone.cells.Count == 0)
                     {
-                        Log.ErrorOnce("Grow zone has 0 cells: " + growZone, -563487, false);
+                        Log.ErrorOnce("Grow zone has 0 cells: " + growZone, -563487);
                     } else if (!growZone.ContainsStaticFire && pawn.CanReach(growZone.Cells[0], PathEndMode.OnCell, maxDanger))
                     {
                         for (int k = 0; k < growZone.cells.Count; k++)

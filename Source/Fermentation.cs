@@ -477,7 +477,7 @@ namespace AdvancedCultivation
             float addedFermenterCompProgress = ((ThingWithComps)addedCompost).GetComp<AC_CompFermenter>().fermentProgress;
             this.Progress = GenMath.WeightedAverage(this.Progress, (float)this.compostCount, addedFermenterCompProgress, (float)count);
             this.compostCount += numToAdd;
-            base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlag.Things);
+            base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlagDefOf.Things);
         }
 
         protected override void ReceiveCompSignal(string signal)
@@ -496,7 +496,7 @@ namespace AdvancedCultivation
             this.compostCount = 0;
             fermentFlag = false;
             this.GetComp<AC_CompFermenter>().Reset();
-            base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlag.Things);
+            base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlagDefOf.Things);
         }
 
         public void AddCompost(Thing compost)
@@ -592,14 +592,14 @@ namespace AdvancedCultivation
             yield break;
         }
 
-        public override void Draw()
+        protected override void DrawAt(Vector3 drawLoc, bool flip = false)
         {
             if (this.Fermented && !this.fermentFlag)
             {
                 this.fermentFlag = true;
-                base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlag.Things);
+                base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlagDefOf.Things);
             }
-            base.Draw();
+            base.DrawAt(drawLoc, flip);
             GenDraw.FillableBarRequest r = default(GenDraw.FillableBarRequest);
             r.center = this.DrawPos + new Vector3(0, 0.1f, -0.4f);
             r.size = Building_AC_CompostBin.BarSize;
