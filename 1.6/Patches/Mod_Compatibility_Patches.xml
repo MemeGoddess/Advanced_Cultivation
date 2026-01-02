@@ -17,7 +17,7 @@
 				<li Class="PatchOperationAdd">
 					<xpath>/Defs/WorkGiverDef[defName="DoBillsMakeCompost"]/fixedBillGiverDefs</xpath>
 					<value>
-					<li>ElectricTableButcher</li>
+						<li>ElectricTableButcher</li>
 					</value>
 				</li>
 			</operations>

@@ -1,0 +1,31 @@
+<Defs>
+    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_DesignatableTerrainBase">
+        <defName>AC_GrasslandSoilTilled</defName>
+        <label>tilled grassland soil</label>
+        <texturePath>Terrain/SoilGrasslandTilled</texturePath>
+        <modExtensions>
+            <li Class="AdvancedCultivation.TerrainExtension">
+                <tilledFrom>GrasslandSoil</tilledFrom>
+            </li>
+        </modExtensions>
+        <statBases>
+            <Beauty>0.5</Beauty>
+        </statBases>
+        <fertility>1</fertility>
+    </TerrainDef>
+
+    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_DesignatableTerrainBase">
+        <defName>AC_GlowforestSoilTilled</defName>
+        <label>tilled glowforest soil</label>
+        <texturePath>Terrain/SoilGlowforestTilled</texturePath>
+        <modExtensions>
+            <li Class="AdvancedCultivation.TerrainExtension">
+                <tilledFrom>GlowforestSoil</tilledFrom>
+            </li>
+        </modExtensions>
+        <statBases>
+            <Beauty>0.5</Beauty>
+        </statBases>
+        <fertility>1</fertility>
+    </TerrainDef>
+</Defs>
