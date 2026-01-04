@@ -1,5 +1,5 @@
 <Defs>
-    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_DesignatableTerrainBase">
+    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_TerrainBase">
         <defName>AC_GrasslandSoilTilled</defName>
         <label>tilled grassland soil</label>
         <texturePath>Terrain/SoilGrasslandTilled</texturePath>
@@ -14,7 +14,7 @@
         <fertility>1</fertility>
     </TerrainDef>
 
-    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_DesignatableTerrainBase">
+    <TerrainDef MayRequire="Ludeon.RimWorld.Odyssey" ParentName="AC_TerrainBase">
         <defName>AC_GlowforestSoilTilled</defName>
         <label>tilled glowforest soil</label>
         <texturePath>Terrain/SoilGlowforestTilled</texturePath>
