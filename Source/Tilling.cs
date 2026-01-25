@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Verse;
 using Verse.AI;
 using RimWorld;
 using HarmonyLib;
+using JetBrains.Annotations;
 using RimWorld.Planet;
 
 namespace AdvancedCultivation
@@ -99,22 +101,45 @@ namespace AdvancedCultivation
         }
     }
 
+
     [HarmonyPatch(typeof(JobDriver_PlantHarvest), "PlantWorkDoneToil")]
     internal static class RimWorld_JobDriver_PlantHarvest_PlantWorkDoneToil
     {
+        private static MethodInfo _plantGetter = AccessTools.PropertyGetter(typeof(JobDriver_PlantWork), "Plant");
         private static void Postfix(ref JobDriver_PlantHarvest __instance, ref Toil __result)
         {
-            Toil toil = __result;
+            var plant = GetPlant(__instance);
+            if (plant != null && plant.def.plant.harvestAfterGrowth > 0)
+                return;
+
+            var toil = __result;
             toil.initAction += () =>
             {
-                IntVec3 c = toil.actor.jobs.curJob.GetTarget(TargetIndex.A).Cell;
+                var c = toil.actor.jobs.curJob.GetTarget(TargetIndex.A).Cell;
                 if (toil.actor.Map.terrainGrid.TerrainAt(c).GetModExtension<TerrainExtension>() != null
                 && toil.actor.Map.terrainGrid.TerrainAt(c).GetModExtension<TerrainExtension>().tilledFrom != null)
                 {
-                    TerrainDef terrainTo = toil.actor.Map.terrainGrid.TerrainAt(c).GetModExtension<TerrainExtension>().tilledFrom;
+                    var terrainTo = toil.actor.Map.terrainGrid.TerrainAt(c).GetModExtension<TerrainExtension>().tilledFrom;
                     toil.actor.Map.terrainGrid.SetTerrain(c, terrainTo);
                 }
             };
+        }
+
+        [CanBeNull]
+        private static Plant GetPlant(JobDriver_PlantWork jobDriver)
+        {
+            Plant plant = null;
+            if (_plantGetter != null)
+                plant = (Plant)_plantGetter.Invoke(jobDriver, new object[] { });
+
+            if (plant == null)
+            {
+                var target = jobDriver.job.targetQueueA.FirstOrDefault(x => x.Thing is Plant);
+                if (target != null)
+                    plant = target.Thing as Plant;
+            }
+
+            return plant;
         }
     }
 
