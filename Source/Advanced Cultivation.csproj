@@ -1,39 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <OutputType>Library</OutputType>
         <RootNamespace>AdvancedCultivation</RootNamespace>
         <AssemblyName>AdvancedCultivation</AssemblyName>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDependencyFile>false</GenerateDependencyFile>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <Version>1.7</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>portable</DebugType>
         <Optimize>false</Optimize>
-        <OutputPath>..\1.6\Assemblies\</OutputPath>
+        <OutputPath>..\$(Version)\Assemblies\</OutputPath>
         <DefineConstants>DEBUG</DefineConstants>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <WarningLevel>4</WarningLevel>
         <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <DebugType>none</DebugType>
+        <DebugType>embedded</DebugType>
         <Optimize>true</Optimize>
-        <OutputPath>..\1.6\Assemblies\</OutputPath>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <OutputPath>..\$(Version)\Assemblies\</OutputPath>
         <WarningLevel>4</WarningLevel>
         <Prefer32Bit>false</Prefer32Bit>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4633" />
-        <PackageReference Include="Lib.Harmony" Version="2.4.2">
-          <ExcludeAssets>runtime</ExcludeAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="$(Version).*-*" />
+        <PackageReference Include="Lib.Harmony" Version="2.4.2" ExcludeAssets="runtime" />
         <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     </ItemGroup>
 </Project>
