@@ -35,7 +35,7 @@ namespace AdvancedCultivation
     {
         private static readonly HashSet<Zone_Growing> AllowedZones = new HashSet<Zone_Growing>();
 
-        static TillToggle() => new Harmony("ToggleTilling").PatchAll();
+        static TillToggle() => new Harmony("ToggleTilling").PatchAll(Assembly.GetExecutingAssembly());
 
         public static void Reset() => AllowedZones.Clear();
         public static bool IsAllowed(Zone_Growing zone) => AllowedZones.Contains(zone);
